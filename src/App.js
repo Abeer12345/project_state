@@ -1,25 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import './App.css';
+import React, { Component } from 'react'
+import imgprofil from './profilimg-modified.png'
+
+class App extends Component {
+  state = {
+    fullName: 'Abir',
+    bio: 'Jonio Web devlopper',
+    imgSrc: imgprofil,
+    profession: 'Web devlopper',
+    shows: false,
+    count:0,
+  };
+  changeShows() {
+    console.log("avant", this.state.shows)
+    this.setState({ shows: !(this.state.shows) }, () => console.log("apre", this.state.shows))
+  }
+
+  componentDidMount() {
+    setInterval(() => {
+      this.setState({count: this.state.count +1});
+    }, 1000);
+
+  }
+  render() {
+    return (
+      <div style={{ textAlign: 'center', marginTop: 50 }} >
+        <button onClick={() => { this.changeShows() }} >SHOW</button>
+        {this.state.shows ? <div>
+          <h1> My name is {this.state.fullName} </h1>
+          <h2> BIO : {this.state.bio} </h2>
+          <img src={this.state.imgSrc} alt='img' />
+          <h3> Profession :{this.state.profession} </h3>
+        </div>
+          : null}
+       <p>
+       Time interval since the component was mounted: {this.state.count}
+       </p> 
+       
+
+      </div>
+    );
+
+  };
 }
 
 export default App;
